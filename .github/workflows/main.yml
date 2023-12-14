@@ -37,7 +37,7 @@ jobs:
          with:
            context: .
            push: true
-           tags: qiaowenz/myapp33:v2
+           tags: qiaowenz/myapp33:latest
      
            
          

@@ -25,7 +25,7 @@ jobs:
            path: target/devops.war
      
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: prod
     needs: build
     steps:
@@ -34,9 +34,8 @@ jobs:
         with:
           name: devops-war
           path: /tmp/
-      - name: Display structure of downloaded files
-        run: ls -l /tmp/
-     
-           
-         
-    
+      - name: Deploy the app
+        run: |
+          sudo systemctl stop tomcat
+          sudo cp /tmp/devops.war /opt/tomcat/webapps/
+          sudo systemctl start tomcat

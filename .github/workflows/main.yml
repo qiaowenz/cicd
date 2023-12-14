@@ -17,11 +17,26 @@ jobs:
        - name: Build with Maven
          run: |
            mvn package
-       - name: list target
-         run: ls -l target
+           ls -l
        - name: Upload Artifact
          uses: actions/upload-artifact@v4
          with:
            name: devops-war
            path: target/devops.war
+     
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    needs: build
+    steps:
+      - name: download the artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: devops-war
+          path: /tmp/
+      - name: Display structure of downloaded files
+        run: ls -l /tmp/
+     
+           
          
+    

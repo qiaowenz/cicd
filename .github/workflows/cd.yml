@@ -9,9 +9,11 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+    environment: prod
     steps:
-       - name: Deployment using docker
+       - uses: actions/checkout@4.1.1
+       
+       - name: Deployment using kubernetes
          run: |
-           sudo docker rm -f webrichard
-           sudo docker rmi -f qiaowenz/myapp33:latest
-           sudo docker run -dt --name webrichard -p 9090:8080 qiaowenz/myapp33:latest
+           kubectl apply -f deployment.yml
+           kubectl get deployment
